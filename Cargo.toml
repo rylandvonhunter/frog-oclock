@@ -4,3 +4,16 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+nano9 = { version = "0.1.0", git = "https://github.com/shanecelis/nano-9.git", features = [] }
+bevy = "0.15.3"
+pico8_decompress = { version = "0.1.0", git = "https://github.com/shanecelis/pico8_decompress.git" }
+toml = "0.8.19"
+
+[patch."https://github.com/shanecelis/nano-9.git"]
+nano9 = { path = "../nano-9" }
+
+[patch.crates-io]
+pico8_decompress = { git = "https://github.com/shanecelis/pico8_decompress.git" }
+bevy_ecs_tilemap = { path = "../bevy_ecs_tilemap" }
+bevy_ecs_tiled = { path = "../bevy_ecs_tiled" }
+# bevy_mod_scripting = { path = "../bevy_mod_scripting" }
