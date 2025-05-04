@@ -595,6 +595,7 @@ dependencies = [
 [[package]]
 name = "bevy_ecs_tiled"
 version = "0.6.0"
+source = "git+https://github.com/shanecelis/bevy_ecs_tiled.git?branch=add-anchor-on-dev#5db778ef6d7c5d94d34da00fe06a4d10536f213f"
 dependencies = [
  "bevy",
  "bevy_ecs_tilemap",
@@ -607,6 +608,7 @@ dependencies = [
 [[package]]
 name = "bevy_ecs_tilemap"
 version = "0.15.0"
+source = "git+https://github.com/shanecelis/bevy_ecs_tilemap.git?branch=add-pivot#7e851765f2c709206f6823ad7e808e9fa507c41c"
 dependencies = [
  "bevy",
  "bevy_internal",
