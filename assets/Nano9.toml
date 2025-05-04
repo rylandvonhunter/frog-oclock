@@ -1,8 +1,8 @@
 name = "Frog O'Clock"
 template = "pico8"
 code = "main.lua"
-# [[sprite_sheet]] # 0
-# path = "tilemap_packed.tsx"
+[[sprite_sheet]] # 0
+path = "title-background.png"
 # [[sprite_sheet]] # 1
 # path = "custom2.png"
 # sprite_size = [16, 16]
