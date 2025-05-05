@@ -7,6 +7,8 @@ path = "title-background.png"
 path = "main-character.png"
 sprite_size = [16, 16]
 sprite_counts = [13, 1]
+[[sprite_sheet]] # 2
+path = "dream-path.png"
 # [[map]] # 0
 # path = "outside-2.tmx"
 # path = "over-world2.world"

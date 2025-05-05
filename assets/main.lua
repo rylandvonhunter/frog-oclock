@@ -60,28 +60,62 @@ function menu_draw()
   circfill(40, 43 + 12 * selection, 1)
 end
 
-x = 0
-y = 0
+x = 13
+y = 48
+moving = 0
+-- facing directions x and y [-1, 0, 1]
+fx = 0 -- -1 is left, 1 is right
+fy = 1 -- -1 is up, 1 is down
 function play_update()
+    moving = 0
     if btn(3) then
         -- down
         y = y + 1
+        moving = 1
+        fy = 1
+        fx = 0
     end
     if btn(2) then
         -- up
         y= y -1
+        moving = 1
+        fy = -1
+        fx = 0
     end
     if btn(1) then
-        -- down
+        -- right
         x = x + 1
+        moving = 1
+        fy = 0
+        fx = 1
     end
     if btn(0) then
-        -- up
+        -- left
         x= x -1
+        moving = 1
+        fy = 0
+        fx = -1
     end
 end
 
 function play_draw()
   cls(7)
-  spr({0,1}, x, y)
+   camera(128 * flr(x / 128), 0)
+   spr({0,2}, 0, 0)
+   -- +9 for right walking sprites
+   local s = flr((x + y) * moving / 5) % 4
+   if fy < 0 then
+       s = s + 4
+   end
+   local flip_x = false
+   if fx ~= 0 then
+       s = s + 9
+       if fx == -1 then
+         flip_x = true
+       end
+   end
+
+   spr({s,1}, x, y, 1, 1, flip_x) -- player
+   print("t = "..flr(time()).." x, y = "..x..", "..y, 0, 0, 7)
+   print("s = "..s, nil, nil, 7)
 end
