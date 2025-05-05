@@ -19,6 +19,7 @@ function _update()
   end
 end
 function _draw()
+    -- draw_dialog("Hello")
     if mode == 0 then
         menu_draw()
     elseif mode == 1 then
@@ -60,7 +61,7 @@ function menu_draw()
   circfill(40, 43 + 12 * selection, 1)
 end
 
-x = 13
+x = 13 + 3 * 128
 y = 48
 moving = 0
 -- facing directions x and y [-1, 0, 1]
@@ -98,10 +99,31 @@ function play_update()
     end
 end
 
+function draw_frog_pond(x,y)
+    circfill( x, y, 20, 0 )
+    spr({0,3}, x - 16, y - 16)
+end
+
+-- show_dialog("Hmm, a frog.", {0, 5})
+-- sfx(croak_sound)
+-- show_dialog("...", {1, 5})
+function draw_dialog(text, portrait)
+    local cx, cy = camera()
+    rectfill(cx, cy + 82, cx + 128, cy + 128, 0)
+    local w = 2 -- width
+    rectfill(cx + w, cy + 82 + w, cx + 128 - w, cy + 128 - w, 7)
+    if portrait then
+
+    end
+
+end
+
 function play_draw()
   cls(7)
    camera(128 * flr(x / 128), 0)
-   spr({0,2}, 0, 0)
+   spr({0,2}, -128, 0)
+   -- 96, 59
+   draw_frog_pond(82 + 3 * 128, 58)
    -- +9 for right walking sprites
    local s = flr((x + y) * moving / 5) % 4
    if fy < 0 then
