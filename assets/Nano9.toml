@@ -1,6 +1,8 @@
 name = "Frog O'Clock"
 template = "pico8"
 code = "main.lua"
+[palette]
+path = "1bit-palette.png"
 [[sprite_sheet]] # 0
 path = "title-background.png"
 [[sprite_sheet]] # 1

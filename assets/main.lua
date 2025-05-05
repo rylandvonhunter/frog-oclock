@@ -7,6 +7,8 @@
 -- 2 - options
 -- 3 - credits
 -- 4 - quit?
+WHITE = 1
+BLACK = 2
 mode = 0
 function _init()
   world.info("init XXX")
@@ -43,17 +45,17 @@ function menu_update()
 end
 selection = 0
 function menu_draw()
-  cls() -- clear screen
-  color(0) -- set color to black
+  cls(BLACK) -- clear screen
+  color(BLACK) -- set color to black
   spr(0) -- draw the title sprite
   local cx, cy = 110, 68 -- circle center
   --circfill(cx, cy, 17, 0)
   local t = time() / 10
   local l = 20
-  line(cx, cy, cx + l * sin(t), cy + l * cos(t), 0)
+  line(cx, cy, cx + l * sin(t), cy + l * cos(t), BLACK)
   t = time() / 600
   l = 10
-  line(cx, cy, cx + l * sin(t), cy + l * cos(t), 0)
+  line(cx, cy, cx + l * sin(t), cy + l * cos(t), BLACK)
   print("play", 51, 41)
   print("options", 46, 53)
   print("quit", 51, 65)
@@ -100,7 +102,7 @@ function play_update()
 end
 
 function draw_frog_pond(x,y)
-    circfill( x, y, 20, 0 )
+    circfill( x, y, 20, BLACK)
     spr({0,3}, x - 16, y - 16)
 end
 
@@ -119,7 +121,7 @@ function draw_dialog(text, portrait)
 end
 
 function play_draw()
-  cls(7)
+  cls(WHITE)
    camera(128 * flr(x / 128), 0)
    spr({0,2}, -128, 0)
    -- 96, 59
@@ -138,6 +140,6 @@ function play_draw()
    end
 
    spr({s,1}, x, y, 1, 1, flip_x) -- player
-   print("t = "..flr(time()).." x, y = "..x..", "..y, 0, 0, 7)
-   print("s = "..s, nil, nil, 7)
+   print("t = "..flr(time()).." x, y = "..x..", "..y, 0, 0, WHITE)
+   print("s = "..s, nil, nil, WHITE)
 end

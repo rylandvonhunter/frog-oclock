@@ -53,6 +53,7 @@ fn main() -> io::Result<()> {
                 global_volume: GlobalVolume::new(0.4),
                 ..default()
             })
+            // .set(ImagePlugin::default_nearest())
             .set(nano9_plugin.window_plugin()),
     )
     .add_plugins(nano9_plugin)
