@@ -63,7 +63,8 @@ function menu_draw()
   circfill(40, 43 + 12 * selection, 1)
 end
 
-x = 13 + 3 * 128
+-- x = 13 + 3 * 128
+x = 13
 y = 48
 moving = 0
 -- facing directions x and y [-1, 0, 1]

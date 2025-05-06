@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 nano9 = { version = "0.1.0", git = "https://github.com/shanecelis/nano-9.git", features = [] }
-bevy = "0.15.3"
+bevy = { version = "0.15.3", features = [ "file_watcher" ] }
 pico8_decompress = { version = "0.1.0", git = "https://github.com/shanecelis/pico8_decompress.git" }
 toml = "0.8.19"
 
