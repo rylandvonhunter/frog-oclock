@@ -1,4 +1,4 @@
-name = "Frog O'Clock"
+name = "Frog o'clock"
 template = "pico8"
 code = "main.lua"
 [palette]

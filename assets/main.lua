@@ -12,6 +12,7 @@ BLACK = 2
 mode = 0
 function _init()
   world.info("init XXX")
+  color(BLACK)
 end
 function _update()
   if mode == 0 then
@@ -21,12 +22,12 @@ function _update()
   end
 end
 function _draw()
-    -- draw_dialog("Hello")
     if mode == 0 then
         menu_draw()
     elseif mode == 1 then
         play_draw()
     end
+    -- draw_dialog("Hello")
 end
 
 function menu_update()
@@ -63,8 +64,8 @@ function menu_draw()
   circfill(40, 43 + 12 * selection, 1)
 end
 
--- x = 13 + 3 * 128
-x = 13
+x = 13 + 3 * 128
+-- x = 13
 y = 48
 moving = 0
 -- facing directions x and y [-1, 0, 1]
@@ -102,8 +103,30 @@ function play_update()
     end
 end
 
+ripple = nil
 function draw_frog_pond(x,y)
+    -- Draw a pond.
     circfill( x, y, 20, BLACK)
+
+    -- Maybe draw a ripple.
+    if ripple then
+      -- If a ripple exists, we draw it and
+      -- increase its size slightly.
+      circ(ripple.x, ripple.y, ripple.r, WHITE)
+      ripple.r = ripple.r + 0.09
+      if ripple.r > 3 then
+        -- Once the ripple gets too big, we delete it.
+        ripple = nil
+      end
+    else
+      -- If there's no ripple, there's a 10% chance per frame
+      -- we'll start a random one.
+      if rnd() < 0.1 then
+        ripple = { x = x + 18 * rnd(), y = y + 18 * rnd(), r = 0 }
+      end
+    end
+
+    -- draw the frog
     spr({0,3}, x - 16, y - 16)
 end
 
@@ -111,14 +134,17 @@ end
 -- sfx(croak_sound)
 -- show_dialog("...", {1, 5})
 function draw_dialog(text, portrait)
-    local cx, cy = camera()
-    rectfill(cx, cy + 82, cx + 128, cy + 128, 0)
-    local w = 2 -- width
-    rectfill(cx + w, cy + 82 + w, cx + 128 - w, cy + 128 - w, 7)
-    if portrait then
+  -- Let's move the camera to its default position, so we can draw the UI
+  -- anywhere from 0,0 to 128,128.
+  local cx, cy = camera(0, 0)
+  rectfill(0, 82, 128, 128, BLACK)
+  local w = 2 -- width
+  rectfill(w, 82 + w, 128 - w, 128 - w, WHITE)
+  if portrait then
 
-    end
-
+  end
+  -- Put the camera back.
+  camera(cx,cy)
 end
 
 function play_draw()
@@ -143,4 +169,5 @@ function play_draw()
    spr({s,1}, x, y, 1, 1, flip_x) -- player
    print("t = "..flr(time()).." x, y = "..x..", "..y, 0, 0, WHITE)
    print("s = "..s, nil, nil, WHITE)
+
 end
