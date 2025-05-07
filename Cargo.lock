@@ -3414,6 +3414,7 @@ dependencies = [
  "futures-lite",
  "keyseq",
  "pico8_decompress",
+ "png",
  "rand",
  "serde",
  "serde_json",

@@ -64,6 +64,10 @@ function menu_draw()
   circfill(40, 43 + 12 * selection, 1)
 end
 
+function walkable(x, y)
+  return sget(x + 8 + 128, y + 8, 5) ~= 2
+end
+
 x = 13 + 3 * 128
 -- x = 13
 y = 48
@@ -73,30 +77,30 @@ fx = 0 -- -1 is left, 1 is right
 fy = 1 -- -1 is up, 1 is down
 function play_update()
     moving = 0
-    if btn(3) then
+    if btn(3) and walkable(x, y + 1) then
         -- down
         y = y + 1
         moving = 1
         fy = 1
         fx = 0
     end
-    if btn(2) then
+    if btn(2) and walkable(x, y - 1)then
         -- up
         y= y -1
         moving = 1
         fy = -1
         fx = 0
     end
-    if btn(1) then
+    if btn(1) and walkable(x + 1, y)then
         -- right
         x = x + 1
         moving = 1
         fy = 0
         fx = 1
     end
-    if btn(0) then
+    if btn(0) and walkable(x - 1, y)then
         -- left
-        x= x -1
+        x= x - 1
         moving = 1
         fy = 0
         fx = -1
