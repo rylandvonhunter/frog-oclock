@@ -27,7 +27,7 @@ function _draw()
     elseif mode == 1 then
         play_draw()
     end
-    -- draw_dialog("Hello")
+    draw_dialog("hello", {0, 4})
 end
 
 function menu_update()
@@ -125,12 +125,12 @@ function draw_frog_pond(x,y)
     else
       -- If there's no ripple, there's a 10% chance per frame
       -- we'll start a random one.
-      if rnd() < 0.1 then
+      if rnd() < 0.10 then
         ripple = { x = x + 18 * rnd(), y = y + 18 * rnd(), r = 0 }
       end
     end
 
-    -- draw the frog
+    -- Draw the frog.
     spr({0,3}, x - 16, y - 16)
 end
 
@@ -139,14 +139,24 @@ end
 -- show_dialog("...", {1, 5})
 function draw_dialog(text, portrait)
   -- Let's move the camera to its default position, so we can draw the UI
-  -- anywhere from 0,0 to 128,128.
+  -- in screen coordinates from 0,0 to 128,128.
   local cx, cy = camera(0, 0)
-  rectfill(0, 82, 128, 128, BLACK)
-  local w = 2 -- width
-  rectfill(w, 82 + w, 128 - w, 128 - w, WHITE)
+  local w = 2 -- width of border
+  local height = 36 -- dialog height
+  rectfill(0, 128 - height,
+           128, 128,
+           BLACK)
+  rectfill(w, 128 - height + w,
+           128 - w, 128 - w,
+           WHITE)
   if portrait then
-
+    -- spr(portrait, 128 - w - 16, 128 - w - 16)
+    -- We want to draw it twice as big.
+    sspr(portrait[1] * 16, 0, 16, 16,
+         128 - w - 32, 128 - w - 32,
+         32, 32, nil, nil, portrait[2])
   end
+  print(text, 2 * w, 128 - height + 2 * w)
   -- Put the camera back.
   camera(cx,cy)
 end

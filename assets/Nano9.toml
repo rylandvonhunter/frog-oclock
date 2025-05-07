@@ -11,16 +11,15 @@ sprite_size = [16, 16]
 sprite_counts = [13, 1]
 [[sprite_sheet]] # 2
 path = "dream-path.png"
-# indexed = true
 [[sprite_sheet]] # 3
 path = "frog.png"
 sprite_size = [32, 32]
 sprite_counts = [8, 1]
 [[sprite_sheet]] # 4
 path = "character-portrait.png"
-sprite_size = [32, 32]
-sprite_counts = [1, 1]
-[[sprite_sheet]] # 5
+sprite_size = [16, 16]
+sprite_counts = [5, 1]
+[[sprite_sheet]] # 5 (collision map)
 path = "dream-path.png"
 indexed = true
 # [[map]] # 0

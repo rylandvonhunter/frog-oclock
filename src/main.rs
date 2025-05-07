@@ -29,6 +29,7 @@ fn main() -> io::Result<()> {
                 next_state.set(RunState::Run);
             },
         )
+        .add_systems(Update, show_asset_changes::<Image>)
         // .add_systems(Update, covers::add_covers)
         ;
     // Add the Old TV effect.
@@ -72,4 +73,10 @@ fn main() -> io::Result<()> {
     // app.add_acts(bevy_minibuffer_inspector::WorldActs::default());
     app.run();
     Ok(())
+}
+
+fn show_asset_changes<T: Asset>(mut reader: EventReader<AssetEvent<T>>) {
+    reader
+        .read()
+        .inspect(|e| info!("asset event {e:?}"));
 }
