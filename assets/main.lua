@@ -23,7 +23,7 @@ fy = 1 -- -1 is up, 1 is down
 function _init()
     world.info("init XXX")
     color(BLACK)
-    --sfx(0)
+    sfx(0)
 end
 
 function _update()

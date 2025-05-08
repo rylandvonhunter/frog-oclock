@@ -26,10 +26,10 @@ fn main() -> io::Result<()> {
             move |asset_server: Res<AssetServer>, mut commands: Commands, mut next_state: ResMut<NextState<RunState>>| {
                 let pico8state: Handle<Pico8State> = asset_server.load("Nano9.toml");
                 commands.insert_resource(InitState(pico8state));
-                next_state.set(RunState::Run);
             },
         )
-        .add_systems(Update, show_asset_changes::<Image>)
+        // .add_systems(Update, show_asset_changes::<Image>)
+        .add_systems(PreUpdate, run_pico8_when_ready)
         // .add_systems(Update, covers::add_covers)
         ;
     // Add the Old TV effect.
