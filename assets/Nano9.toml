@@ -22,6 +22,24 @@ sprite_counts = [5, 1]
 [[sprite_sheet]] # 5 (collision map)
 path = "dream-path.png"
 indexed = true
+[[sprite_sheet]] # 6
+path = "fight-screen.png"
+sprite_size = [128, 128]
+sprite_counts = [3, 1]
+[[sprite_sheet]] # 7
+path = "health-bar-2.png"
+sprite_size = [64, 8]
+sprite_counts = [2, 1]
+[[sprite_sheet]] # 8
+path = "sword.png"
+sprite_size = [16, 16]
+sprite_counts = [1, 1]
+[[sprite_sheet]] # 9
+path = "button.png"
+sprite_size = [16, 16]
+sprite_counts = [4, 1]
+[[audio_bank]]
+paths = ["boop.ogg", "ehh.ogg", "sword-swing0.ogg"]
 # [[map]] # 0
 # path = "outside-2.tmx"
 # path = "over-world2.world"

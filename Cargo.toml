@@ -10,7 +10,7 @@ pico8_decompress = { version = "0.1.0", git = "https://github.com/shanecelis/pic
 toml = "0.8.19"
 
 [patch."https://github.com/shanecelis/nano-9.git"]
-nano9 = { path = "../nano-9" }
+#nano9 = { path = "../nano-9" }
 
 [patch.crates-io]
 pico8_decompress = { git = "https://github.com/shanecelis/pico8_decompress.git" }
