@@ -20,10 +20,12 @@ moving = 0
 -- facing directions x and y [-1, 0, 1]
 fx = 0 -- -1 is left, 1 is right
 fy = 1 -- -1 is up, 1 is down
+frame = 0
 function _init()
     world.info("init XXX")
     color(BLACK)
-    sfx(0)
+    --sfx(0)
+
 end
 
 function _update()
@@ -34,6 +36,7 @@ function _update()
     elseif mode == 5 then
         fight_update()
     end
+    frame = frame + 1
 end
 
 function _draw()
@@ -83,7 +86,15 @@ function menu_draw()
 end
 
 function walkable(x, y)
-    return sget(x + 8 + 128, y + 8, 5) ~= 2
+    if y > 0 and y < 128 then
+        -- cavern
+        return sget(x + 8 + 128, y + 8, 5) ~= 2
+    elseif y >= -256 and y <= -128 then
+        -- betty's room
+        return sget(x + 8, y + 8 + 256, 12) ~= 2
+    else
+        return true
+    end
 end
 
 
@@ -142,8 +153,7 @@ function draw_frog_pond(x, y)
         end
     end
 
-    -- Draw the frog.
-    spr({ 0, 3 }, x - 16, y - 16)
+
 end
 
 -- show_dialog("Hmm, a frog.", {0, 5})
@@ -173,12 +183,21 @@ function draw_dialog(text, portrait)
     camera(cx, cy)
 end
 
+frog = {
+    x = 82 + 3 * 128 - 16,
+    y = 58 - 16
+}
+
 function play_draw()
     cls(WHITE)
-    camera(128 * flr(x / 128), 0)
+    camera(128 * flr(x / 128), 128 * flr(y / 128))
     spr({ 0, 2 }, -128, 0)
+    -- bettys house
+    spr ({0,11},0,-256)
     -- 96, 59
-    draw_frog_pond(82 + 3 * 128, 58)
+    draw_frog_pond(frog.x + 16, frog.y + 16)
+    -- Draw the frog.
+    spr({ 0, 3 }, frog.x, frog.y)
     -- +9 for right walking sprites
     local s = flr((x + y) * moving / 5) % 4
     if fy < 0 then
@@ -198,6 +217,8 @@ function play_draw()
 end
 
 fight_mode = 0
+fight_mode_start = nil
+fight_mode_frame = nil
 -- 0 - fight menu
 -- 1 - fight
 -- 2 - heal
@@ -237,11 +258,19 @@ function fight_draw()
 
         end
      elseif fight_mode == 4 then -- miss
-     camera(cx, cy)
+        camera(cx, cy)
         print("miss", x+14, y -3, BLACK)
+
      elseif fight_mode == 5 then -- hit
-     camera(cx, cy)
-        print("hit", x+14, y -3,BLACK)
+        camera(cx, cy)
+        print("hit", x+14, y - 3, BLACK)
+    elseif fight_mode == 6 then -- frog hits back
+        camera(cx,cy)
+        local t = time() - fight_mode_start
+        --local t = .8
+        local bx = frog.x + (x - frog.x) * t
+        spr({0,10}, bx, frog.y + 20 * sin(t/2))
+
     end
     print("fight_mode "..fight_mode, 0,120, WHITE)
 end
@@ -271,20 +300,49 @@ function fight_update()
     if time() < fight_press then
         -- not ready to press
         if btnp() then
-            fight_mode = 4 -- miss
+            goto_fight_mode(4) -- miss
         end
     elseif time() > fight_press and time() < fight_press + time_to_press then
 
         -- ready to press
        local buttons = {4,5}
        if btnp(buttons[fight_button]) then
-          fight_mode = 5
+            goto_fight_mode(5)
         elseif btnp() then
-            fight_mode = 4
+            goto_fight_mode(4)
        end
     elseif time() > fight_press + time_to_press + 2 then
            -- time elapsed
-           fight_mode = 4 -- miss
+           goto_fight_mode(4) -- miss
     end
+    elseif fight_mode == 4 then -- miss
+        -- TODO: Wait 2 seconds before changing mode.
+        if time() > fight_mode_start + 2 then
+            goto_fight_mode(6)
+        end
+    elseif fight_mode == 5 then -- hit
+        if time() > fight_mode_start + 2 then
+            goto_fight_mode(6)
+        end
+    elseif fight_mode == 6 then -- frog hits back
+        if frame - fight_mode_frame == 60 then
+            local damage =  flr(rnd(3)+2)
+            hp = hp - damage
+        end
+        if hp <1 then
+            -- change mode to 1 then draw bettys house.png
+            mode = 1
+            x =4
+            y =6-256
+        end
+        if time() > fight_mode_start + 2 then
+            goto_fight_mode(0)
+        end
     end
+end
+
+function goto_fight_mode(n)
+    fight_mode = n
+    fight_mode_start = time()
+    fight_mode_frame = frame
 end

@@ -38,6 +38,17 @@ sprite_counts = [1, 1]
 path = "button.png"
 sprite_size = [16, 16]
 sprite_counts = [4, 1]
+[[sprite_sheet]] # 10
+path = "ball frog fight.png"
+sprite_size = [16, 16]
+sprite_counts = [2, 1]
+[[sprite_sheet]] # 11
+path = "bettys house.png"
+sprite_size = [128, 128]
+sprite_counts = [3, 1]
+[[sprite_sheet]] # 12
+path = "room-blocker.png"
+indexed = true
 [[audio_bank]]
 paths = ["boop.ogg", "ehh.ogg", "sword-swing0.ogg"]
 # [[map]] # 0
