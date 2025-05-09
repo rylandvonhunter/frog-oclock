@@ -49,6 +49,13 @@ sprite_counts = [3, 1]
 [[sprite_sheet]] # 12
 path = "room-blocker.png"
 indexed = true
+[[sprite_sheet]] # 13
+path = "house.png"
+[[sprite_sheet]] # 14
+path = "shop.png"
+[[sprite_sheet]] # 15
+path = "shop interior.png"
+
 [[audio_bank]]
 paths = ["boop.ogg", "ehh.ogg", "sword-swing0.ogg"]
 # [[map]] # 0

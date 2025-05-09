@@ -1,16 +1,8 @@
 -- Frog o'clock
 --
 
--- mode represents the main "state" of the game
--- 0 - menu
--- 1 - play
--- 2 - options
--- 3 - credits
--- 4 - quit?
--- 5 - fight
 WHITE = 1
 BLACK = 2
-mode = 5
 hp = 16
 x = 13 + 3 * 128
 -- x = 13
@@ -21,7 +13,6 @@ moving = 0
 fx = 0 -- -1 is left, 1 is right
 fy = 1 -- -1 is up, 1 is down
 frame = 0
-
 
 function _init()
     world.info("init XXX")
@@ -41,13 +32,6 @@ function _update()
   -- if not ok then
   --   world.info(result)
   -- end
-    -- if mode == 0 then
-    --     menu_update()
-    -- elseif mode == 1 then
-    --     play_update()
-    -- elseif mode == 5 then
-    --     fight_update()
-    -- end
     frame = frame + 1
 end
 
@@ -106,10 +90,17 @@ end
 function draw_world()
     cls(WHITE)
     camera(128 * flr(x / 128), 128 * flr(y / 128))
+    -- cavern
     spr({ 0, 2 }, -128, 0)
-    -- bettys house
+    -- bettys house inside
     spr ({0,11},0,-256)
-    -- 96, 59
+    -- shop interior
+    spr({ 0, 15 }, 128, -256)
+    -- betty's house outside
+    spr({0,13},0, 128)
+    -- shop
+    spr({0,14},128,128)
+
     draw_frog_pond(frog.x + 16, frog.y + 16)
     -- Draw the frog.
     spr({ 0, 3 }, frog.x, frog.y)
@@ -170,7 +161,7 @@ function play()
     if distance(x,y, frog.x, frog.y) < 40 then
       draw_dialog("RIBBIT", {4, 4})
       wait_for_btnp()
-      draw_dialog("dO YOU HAVE THE TIME?", {0, 4})
+      draw_dialog("wHAT A CUTE LITTLE FROG", {0, 4})
       wait_for_btnp()
       draw_dialog("*croak*", {4, 4})
       -- TODO: start wild music here?
@@ -181,6 +172,10 @@ function play()
       fy = 1
       x =4
       y =6-256
+    elseif distance(x,y,64,-128) < 30 then
+        -- leave betty's house
+        x = 87
+        y = 85 + 128
     end
 
     yield()
@@ -240,8 +235,6 @@ function draw_frog_pond(x, y)
             ripple = { x = x + 18 * rnd(), y = y + 18 * rnd(), r = 0 }
         end
     end
-
-
 end
 
 -- show_dialog("Hmm, a frog.", {0, 5})
@@ -286,9 +279,6 @@ function fight_menu()
   print("fLEE", 8, 101, WHITE)
 
   local dot = circfill(3, 89 + 7 * selection, 1, WHITE):retain(0.1)
-  -- local pos = dot:pos()
-  -- world.info("pos "..pos[1])
-  -- local dot = circfill(3, 89 + 7 * selection, 1, WHITE)
   while true do
     if btnp(3) and selection < 2 then
         selection = selection + 1
@@ -301,18 +291,6 @@ function fight_menu()
     if btnp(4) then
       dot:despawn()
       return selection
-
-        -- selecting a menu item
-        -- if selection == 0 then
-        --     -- fight
-        --     fight_mode = 1
-        --     fight_button = rnd({1,2})
-        --     fight_press = time() + 2 + rnd(3)
-        -- elseif selection == 1 then
-        --     -- heal
-        -- elseif selection == 2 then
-        --     -- flee
-        -- end
     end
     yield()
   end
@@ -320,10 +298,9 @@ end
 
 function frog_attack()
   local start = time()
-  local ball = spr({0,10}, frog.x, frog.y):retain(0.1)
+  local ball = spr({0,10}, frog.x, frog.y):retain(0.5)
   while true do
     local t = time() - start
-    --local t = .8
     local bx = frog.x + (x - frog.x) * t
     ball:pos(bx, frog.y + 20 * sin(t/2))
     if t > 1 then
@@ -331,7 +308,6 @@ function frog_attack()
 
       local damage = flr(rnd(3)+2)
       hp = hp - damage
-      -- print("hit", x+14, y - 3, BLACK)
       wait(1)
       return
     end
