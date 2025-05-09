@@ -206,14 +206,15 @@ end
 -- was pressed.
 function wait_for_btnp(button, timeout)
   local start = time()
+  yield()
   while true do
-    yield()
-    if timeout and time() - start > timeout then
-      return false
-    end
     if btnp(button) then
       return true
     end
+    if timeout and time() - start > timeout then
+      return false
+    end
+    yield()
   end
 end
 
@@ -369,12 +370,10 @@ function fight()
            local buttons = {4,5}
            local fight_button = ceil(rnd(2))
            print(buttons_names[fight_button], x+14, y-3) -- button text
-           if wait_for_btnp(buttons[fight_button], 0.5) then
-             wait(0.1)
+           if wait_for_btnp(buttons[fight_button], 1.0) then
             print("hit", x+14, y - 3, BLACK)
            else
             print("miss", x+14, y -3, BLACK)
-
            end
             wait(1)
         end
