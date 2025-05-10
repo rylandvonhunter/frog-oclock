@@ -70,12 +70,13 @@ function main_menu()
         sfx(6)
         -- selecting a menu item
         if selection == 0 then
-          play()
+            play()
         elseif selection == 2 then
-              exit()
-              elseif selection == 3 then
-                    credits()
-
+            exit()
+        elseif selection == 3 then
+            credits()
+        elseif selection == 1 then
+            options()
         end
     end
     yield()
@@ -378,10 +379,63 @@ end
 
 function credits()
     local start = time()
+    local speed = 12
+    local c = color(WHITE)
     while true do
         cls()
-        local t = time() - start
-        print("credits", 0, 128 - t,WHITE)
+        local t = time()  - start
+        print("credits", 46, 128 - t * speed,WHITE)
+        print("")
+        print("art",49)
+        print("betty by ryland")
+        print("frog by ryland")
+        print("house by shane")
+        print("")
+        print("sound")
+        print("battle by shane")
+        print("menu sounds by shane")
+        print("sword by ryland")
+        print("")
+        print("coding")
+        print("coding language lua")
+        print("basic coding")
+        print("ryland and shane")
+        print("")
+
+
+
+
+        if t > 20 then
+            break
+        end
         yield()
+        if btnp()then
+            return --main menu
+        end
     end
+    color(c)
+    -- easter egg
+    spr({ 0, 3 },64,64)
+    draw_dialog("tHANKS FOR SURVIVING\n ALL THOSE CREDITS", {4, 4})
+    wait_for_btnp()
+    draw_dialog("hERES A GIFT", {4, 4})
+    wait_for_btnp()
+    draw_dialog("dID YOU REALY THINK I WAS\nGIVING YOU A GIFT?!", {4, 4})
+    wait_for_btnp()
+    draw_dialog("*uNSATISFIED CROAK*", {4, 4})
+    wait_for_btnp()
+end
+
+function options()
+    cls()
+    draw_dialog("options?", {4, 4})
+    wait_for_btnp()
+    draw_dialog("you have to wait for options!", {4, 4})
+    wait_for_btnp()
+    draw_dialog("how about you wait for the \nfull realease on itch.io", {4, 4})
+    wait_for_btnp()
+    draw_dialog("instead how about you read a \nbook or watch a movie", {4, 4})
+    wait_for_btnp()
+    draw_dialog("*very very very \nunsatisfied croak*", {4, 4})
+    wait_for_btnp()
 end
