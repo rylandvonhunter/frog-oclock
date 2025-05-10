@@ -57,7 +57,16 @@ path = "shop.png"
 path = "shop interior.png"
 
 [[audio_bank]]
-paths = ["boop.ogg", "ehh.ogg", "sword-swing0.ogg"]
+paths = ["boop.ogg", #0
+"ehh.ogg",           #1
+"sword-swing0.ogg",  #2
+"fight-build.ogg",   #3
+"ambient-bagomp.ogg",#4
+"ui-move.ogg",       #5
+"ui-click.ogg",      #6
+"ui-cancel.ogg",     #7
+"bonk.ogg",          #8
+]
 # [[map]] # 0
 # path = "outside-2.tmx"
 # path = "over-world2.world"

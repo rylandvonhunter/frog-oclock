@@ -60,15 +60,22 @@ function main_menu()
     circfill(40, 43 + 12 * selection, 1)
     if btnp(3) and selection < 3 then
         selection = selection + 1
+        sfx(5)
     end
     if btnp(2) and selection > 0 then
         selection = selection - 1
+        sfx(5)
     end
     if btnp(4) then
+        sfx(6)
         -- selecting a menu item
         if selection == 0 then
           play()
-            -- mode = 1
+        elseif selection == 2 then
+              exit()
+              elseif selection == 3 then
+                    credits()
+
         end
     end
     yield()
@@ -271,6 +278,8 @@ frog = {
 }
 
 function fight_menu()
+  -- TODO: do as looping music
+  sfx(3)
   local selection = 0
 
   -- draw fight menu
@@ -281,14 +290,17 @@ function fight_menu()
   local dot = circfill(3, 89 + 7 * selection, 1, WHITE):retain(0.1)
   while true do
     if btnp(3) and selection < 2 then
+        sfx(5)
         selection = selection + 1
     end
     if btnp(2) and selection > 0 then
+        sfx(5)
         selection = selection - 1
     end
     -- set the dot position
     dot:pos(nil, 89 + 7 * selection)
     if btnp(4) then
+        sfx(6)
       dot:despawn()
       return selection
     end
@@ -305,7 +317,7 @@ function frog_attack()
     ball:pos(bx, frog.y + 20 * sin(t/2))
     if t > 1 then
       ball:despawn()
-
+      sfx(8)
       local damage = flr(rnd(3)+2)
       hp = hp - damage
       wait(1)
@@ -332,12 +344,12 @@ function fight()
     spr({ 1, 7 }, 3, 8)
     local selection = fight_menu()
     if selection == 0 then -- fight
-      -- fight_mode = 1
         camera(cx, cy)
         spr({0,8},x+8,y+2) -- sword
         spr({0,9},x+8,y-8) -- button outline
         -- not ready to press
-        if wait_for_btnp(nil, rnd(2)) then
+        if wait_for_btnp(nil, rnd(2) + 1) then
+            sfx(1)
           print("miss", x+14, y -3, BLACK)
           wait(1)
         else
@@ -348,7 +360,9 @@ function fight()
            print(buttons_names[fight_button], x+14, y-3) -- button text
            if wait_for_btnp(buttons[fight_button], 1.0) then
             print("hit", x+14, y - 3, BLACK)
+            sfx(2)
            else
+           sfx(1)
             print("miss", x+14, y -3, BLACK)
            end
             wait(1)
@@ -360,4 +374,14 @@ function fight()
     end
     yield()
   end
+end
+
+function credits()
+    local start = time()
+    while true do
+        cls()
+        local t = time() - start
+        print("credits", 0, 128 - t,WHITE)
+        yield()
+    end
 end
