@@ -4,8 +4,8 @@
 WHITE = 1
 BLACK = 2
 hp = 16
-x = 13 + 3 * 128
--- x = 13
+-- x = 13 + 3 * 128
+x = 13
 y = 48
 hpmax = 16
 moving = 0
@@ -132,6 +132,7 @@ function draw_player()
 end
 
 function play()
+  music(4, nil, 2)
   while true do
     draw_world()
     draw_player()
@@ -167,6 +168,7 @@ function play()
     end
 
     if distance(x,y, frog.x, frog.y) < 40 then
+      music(-1)
       draw_dialog("RIBBIT", {4, 4})
       wait_for_btnp()
       draw_dialog("wHAT A CUTE LITTLE FROG", {0, 4})
@@ -249,7 +251,6 @@ end
 -- sfx(croak_sound)
 -- show_dialog("...", {1, 5})
 function draw_dialog(text, portrait)
-  world.info("draw_dialog")
     -- Let's move the camera to its default position, so we can draw the UI
     -- in screen coordinates from 0,0 to 128,128.
     local cx, cy = camera(0, 0)
@@ -280,7 +281,6 @@ frog = {
 
 function fight_menu()
   -- TODO: do as looping music
-  sfx(3)
   local selection = 0
 
   -- draw fight menu
@@ -321,7 +321,7 @@ function frog_attack()
       sfx(8)
       local damage = flr(rnd(3)+2)
       hp = hp - damage
-      wait(1)
+      wait(0.1)
       return
     end
     yield()
@@ -329,6 +329,9 @@ function frog_attack()
 end
 
 function fight()
+  yield()
+  music(3, nil, 2)
+  yield()
   while true do
     cls()
     draw_world()
@@ -370,6 +373,7 @@ function fight()
         end
         frog_attack()
         if hp < 1 then
+          music(-1)
           return false
         end
     end
