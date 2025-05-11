@@ -57,6 +57,8 @@ fn main() -> io::Result<()> {
             // .set(ImagePlugin::default_nearest())
             .set(nano9_plugin.window_plugin()),
     )
+    .add_plugins(bevy_framepace::FramepacePlugin)
+    .insert_resource(bevy_framepace::FramepaceSettings::default().with_limiter(bevy_framepace::Limiter::from_framerate(60.0)))
     .add_plugins(nano9_plugin)
     .add_plugins(nano9::raycast::RaycastPlugin)
     // .add_plugins(OldTvPlugin)
