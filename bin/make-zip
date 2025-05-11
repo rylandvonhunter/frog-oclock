@@ -1,35 +1,40 @@
 #!/bin/bash
 set -e  # Exit immediately if a command exits with a non-zero status
+
+if [ ! -f Cargo.toml ]; then
+    echo "error: Run in cargo root directory." >&2;
+    exit 1;
+fi
 # Configuration
-# APP_NAME="your_app_name"  # Replace with your Rust binary name
-APP_NAME="$(cargo pkgid | sed 's/#.*//;s/^.*\///;')"
+# app_name="your_app_name"  # Replace with your Rust binary name
+app_name="$(cargo pkgid | sed 's/#.*//;s/^.*\///;')"
 version="$(cargo pkgid | sed 's/^.*#//;')"
-OUTPUT_DIR="$APP_NAME-$version-win"
-ZIP_NAME="$APP_NAME-$version-win.zip"
+output_dir="$app_name-$version-win"
+zip_name="$output_dir.zip"
 
 # Ensure release build
 echo "Building the Rust application..."
-cargo build --release || { echo "Build failed"; exit 1; }
+cargo build --release || { echo "Build failed" >&2; exit 2; }
 
 # Create output directory
-mkdir -p "$OUTPUT_DIR"
+mkdir -p "$output_dir"
 
 # Copy necessary files
 echo "Preparing files..."
-cp "target/release/$APP_NAME.exe" "$OUTPUT_DIR/"
-cp -a "assets" "$OUTPUT_DIR/"
-rm $OUTPUT_DIR/assets/*.aup3
-rm $OUTPUT_DIR/assets/*.aseprite
-# cp README.md "$OUTPUT_DIR/" 2>/dev/null
-# cp LICENSE "$OUTPUT_DIR/" 2>/dev/null
+cp "target/release/$app_name.exe" "$output_dir/"
+cp -a "assets" "$output_dir/"
+rm $output_dir/assets/*.aup3
+rm $output_dir/assets/*.aseprite
+# cp README.md "$output_dir/" 2>/dev/null
+# cp LICENSE "$output_dir/" 2>/dev/null
 
 # Create the zip archive
 echo "Creating zip file..."
-cd "$OUTPUT_DIR" || exit 1
-zip -r "../$ZIP_NAME" *
+cd "$output_dir" || exit 3
+zip -r "../$zip_name" *
 cd ..
 
 # Cleanup (optional)
-rm -rf "$OUTPUT_DIR"
+rm -rf "$output_dir"
 
-echo "Packaging complete: $ZIP_NAME"
+echo "Packaging complete: $zip_name"
