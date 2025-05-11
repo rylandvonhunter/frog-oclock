@@ -1,0 +1,35 @@
+#!/bin/bash
+set -e  # Exit immediately if a command exits with a non-zero status
+# Configuration
+# APP_NAME="your_app_name"  # Replace with your Rust binary name
+APP_NAME="$(cargo pkgid | sed 's/#.*//;s/^.*\///;')"
+version="$(cargo pkgid | sed 's/^.*#//;')"
+OUTPUT_DIR="$APP_NAME-$version-win"
+ZIP_NAME="$APP_NAME-$version-win.zip"
+
+# Ensure release build
+echo "Building the Rust application..."
+cargo build --release || { echo "Build failed"; exit 1; }
+
+# Create output directory
+mkdir -p "$OUTPUT_DIR"
+
+# Copy necessary files
+echo "Preparing files..."
+cp "target/release/$APP_NAME.exe" "$OUTPUT_DIR/"
+cp -a "assets" "$OUTPUT_DIR/"
+rm $OUTPUT_DIR/assets/*.aup3
+rm $OUTPUT_DIR/assets/*.aseprite
+# cp README.md "$OUTPUT_DIR/" 2>/dev/null
+# cp LICENSE "$OUTPUT_DIR/" 2>/dev/null
+
+# Create the zip archive
+echo "Creating zip file..."
+cd "$OUTPUT_DIR" || exit 1
+zip -r "../$ZIP_NAME" *
+cd ..
+
+# Cleanup (optional)
+rm -rf "$OUTPUT_DIR"
+
+echo "Packaging complete: $ZIP_NAME"
