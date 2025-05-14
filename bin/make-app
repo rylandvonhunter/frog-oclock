@@ -60,3 +60,6 @@ cargo build --release --target aarch64-apple-darwin # build for Apple Silicon
 lipo "target/x86_64-apple-darwin/release/${RUST_CRATE_NAME}" \
      "target/aarch64-apple-darwin/release/${RUST_CRATE_NAME}" \
      -create -output "${APP_NAME}.app/Contents/MacOS/${RUST_CRATE_NAME}"
+version="$(cargo pkgid | sed 's/.*#//')"
+
+hdiutil create -fs HFS+ -volname "$APP_NAME" -srcfolder "$APP_NAME.app/" "$APP_NAME-$version.dmg"

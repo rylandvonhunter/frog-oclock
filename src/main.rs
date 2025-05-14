@@ -28,7 +28,8 @@ fn main() -> io::Result<()> {
                 commands.insert_resource(InitState(pico8state));
             },
         )
-        // .add_systems(Update, show_asset_changes::<Image>)
+        .add_systems(Update, show_asset_changes::<Image>)
+        .add_systems(Update, show_asset_changes::<Gfx>)
         .add_systems(PreUpdate, run_pico8_when_ready)
         // .add_systems(Update, covers::add_covers)
         ;
@@ -60,7 +61,7 @@ fn main() -> io::Result<()> {
     .add_plugins(bevy_framepace::FramepacePlugin)
     .insert_resource(bevy_framepace::FramepaceSettings::default().with_limiter(bevy_framepace::Limiter::from_framerate(60.0)))
     .add_plugins(nano9_plugin)
-    .add_plugins(nano9::raycast::RaycastPlugin)
+    // .add_plugins(nano9::raycast::RaycastPlugin)
     // .add_plugins(OldTvPlugin)
     ;
 

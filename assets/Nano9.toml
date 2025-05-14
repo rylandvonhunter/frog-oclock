@@ -3,57 +3,59 @@ template = "pico8"
 code = "main.lua"
 [palette]
 path = "1bit-palette.png"
-[[sprite_sheet]] # 0
+[[image]] # 0
 path = "title-background.png"
-[[sprite_sheet]] # 1
+[[image]] # 1
 path = "main-character.png"
 sprite_size = [16, 16]
-sprite_counts = [13, 1]
-[[sprite_sheet]] # 2
+# sprite_counts = [13, 1]
+indexed = true
+[[image]] # 2
 path = "dream-path.png"
-[[sprite_sheet]] # 3
+indexed = true
+[[image]] # 3
 path = "frog.png"
 sprite_size = [32, 32]
-sprite_counts = [8, 1]
-[[sprite_sheet]] # 4
+# sprite_counts = [8, 1]
+[[image]] # 4
 path = "character-portrait.png"
 sprite_size = [16, 16]
-sprite_counts = [5, 1]
-[[sprite_sheet]] # 5 (collision map)
+# sprite_counts = [5, 1]
+[[image]] # 5 (collision map)
 path = "dream-path.png"
 indexed = true
-[[sprite_sheet]] # 6
+[[image]] # 6
 path = "fight-screen.png"
 sprite_size = [128, 128]
-sprite_counts = [3, 1]
-[[sprite_sheet]] # 7
+# sprite_counts = [3, 1]
+[[image]] # 7
 path = "health-bar-2.png"
 sprite_size = [64, 8]
-sprite_counts = [2, 1]
-[[sprite_sheet]] # 8
+# sprite_counts = [2, 1]
+[[image]] # 8
 path = "sword.png"
 sprite_size = [16, 16]
-sprite_counts = [1, 1]
-[[sprite_sheet]] # 9
+# sprite_counts = [1, 1]
+[[image]] # 9
 path = "button.png"
 sprite_size = [16, 16]
-sprite_counts = [4, 1]
-[[sprite_sheet]] # 10
+# sprite_counts = [4, 1]
+[[image]] # 10
 path = "ball frog fight.png"
 sprite_size = [16, 16]
-sprite_counts = [2, 1]
-[[sprite_sheet]] # 11
+# sprite_counts = [2, 1]
+[[image]] # 11
 path = "bettys house.png"
 sprite_size = [128, 128]
-sprite_counts = [3, 1]
-[[sprite_sheet]] # 12
+# sprite_counts = [3, 1]
+[[image]] # 12
 path = "room-blocker.png"
 indexed = true
-[[sprite_sheet]] # 13
+[[image]] # 13
 path = "house.png"
-[[sprite_sheet]] # 14
+[[image]] # 14
 path = "shop.png"
-[[sprite_sheet]] # 15
+[[image]] # 15
 path = "shop interior.png"
 
 [[audio_bank]]
