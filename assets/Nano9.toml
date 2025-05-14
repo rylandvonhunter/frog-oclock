@@ -1,10 +1,13 @@
 name = "Frog o'clock"
 template = "pico8"
 code = "main.lua"
-[palette]
+[[palette]] # 0
 path = "1bit-palette.png"
+[[palette]] # 1
+path = "dawn-palette.png"
 [[image]] # 0
 path = "title-background.png"
+indexed = true
 [[image]] # 1
 path = "main-character.png"
 sprite_size = [16, 16]
@@ -16,10 +19,12 @@ indexed = true
 [[image]] # 3
 path = "frog.png"
 sprite_size = [32, 32]
+indexed = true
 # sprite_counts = [8, 1]
 [[image]] # 4
 path = "character-portrait.png"
 sprite_size = [16, 16]
+indexed = true
 # sprite_counts = [5, 1]
 [[image]] # 5 (collision map)
 path = "dream-path.png"
@@ -27,36 +32,45 @@ indexed = true
 [[image]] # 6
 path = "fight-screen.png"
 sprite_size = [128, 128]
+indexed = true
 # sprite_counts = [3, 1]
 [[image]] # 7
 path = "health-bar-2.png"
 sprite_size = [64, 8]
+indexed = true
 # sprite_counts = [2, 1]
 [[image]] # 8
 path = "sword.png"
 sprite_size = [16, 16]
+indexed = true
 # sprite_counts = [1, 1]
 [[image]] # 9
 path = "button.png"
 sprite_size = [16, 16]
+indexed = true
 # sprite_counts = [4, 1]
 [[image]] # 10
 path = "ball frog fight.png"
 sprite_size = [16, 16]
+indexed = true
 # sprite_counts = [2, 1]
 [[image]] # 11
 path = "bettys house.png"
 sprite_size = [128, 128]
+indexed = true
 # sprite_counts = [3, 1]
 [[image]] # 12
 path = "room-blocker.png"
 indexed = true
 [[image]] # 13
 path = "house.png"
+indexed = true
 [[image]] # 14
 path = "shop.png"
+indexed = true
 [[image]] # 15
 path = "shop interior.png"
+indexed = true
 
 [[audio_bank]]
 paths = ["boop.ogg", #0
