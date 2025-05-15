@@ -30,7 +30,7 @@ long_description = """
 # osx_url_schemes = ["com.seawisphunter.frog-oclock"]
 
 [patch."https://github.com/shanecelis/nano-9.git"]
-nano9 = { path = "../nano-9" }
+#nano9 = { path = "../nano-9" }
 
 [patch.crates-io]
 pico8_decompress = { git = "https://github.com/shanecelis/pico8_decompress.git" }

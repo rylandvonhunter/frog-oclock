@@ -3386,6 +3386,7 @@ dependencies = [
 [[package]]
 name = "nano9"
 version = "0.1.0"
+source = "git+https://github.com/shanecelis/nano-9.git#e903643eaf6465b23942c7eb375cdbe40bebdb07"
 dependencies = [
  "atomicow",
  "bevy",
