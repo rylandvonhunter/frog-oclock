@@ -16,7 +16,8 @@ frame = 0
 
 function _init()
     world.info("init XXX")
-    pal(1)
+    pal(0)
+    -- pal(1)
     camera(0,0)
     color(BLACK)
     --sfx(0)

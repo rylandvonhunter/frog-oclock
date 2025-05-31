@@ -1,39 +1,12 @@
 [package]
 name = "frog-oclock"
+description = "A 1-BIT JAM 6 Game"
 version = "0.1.0"
 edition = "2024"
 authors = ["Ryland Von Hunter", "Shane Celis <shane.celis@gmail.com>"]
 
 [dependencies]
-nano9 = { version = "0.1.0", git = "https://github.com/shanecelis/nano-9.git", features = [] }
+nano9 = { version = "0.1.0-alpha.1" }
 bevy = { version = "0.15.3", features = [ "file_watcher" ] }
-pico8_decompress = { version = "0.1.0", git = "https://github.com/shanecelis/pico8_decompress.git" }
 toml = "0.8.19"
 bevy_framepace = "0.18"
-
-[package.metadata.bundle]
-name = "FROGOCLOCK"
-identifier = "com.seawisphunter.frog-oclock"
-icon = ["icon-32x32.png", "icon-64x64.png", "icon-128x128.png"]
-version = "0.1.0"
-resources = ["assets"]
-copyright = "Copyright (c) Ryland Von Hunter and Shane Celis 2025."
-category = "Game"
-short_description = "A 1-BIT JAM 6 Game"
-long_description = """
-"What time is it?"
-
-"Frog o'clock!"
-"""
-# deb_depends = ["libgl1-mesa-glx", "libsdl2-2.0-0 (>= 2.0.5)"]
-# osx_frameworks = ["SDL2"]
-# osx_url_schemes = ["com.seawisphunter.frog-oclock"]
-
-[patch."https://github.com/shanecelis/nano-9.git"]
-#nano9 = { path = "../nano-9" }
-
-[patch.crates-io]
-pico8_decompress = { git = "https://github.com/shanecelis/pico8_decompress.git" }
-bevy_ecs_tilemap = { git = "https://github.com/shanecelis/bevy_ecs_tilemap.git", branch = "add-pivot"}
-bevy_ecs_tiled = { git = "https://github.com/shanecelis/bevy_ecs_tiled.git", branch = "add-anchor-on-dev"}
-# bevy_mod_scripting = { path = "../bevy_mod_scripting" }
